@@ -1,0 +1,56 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Demo-day starter",
+  "author": "Write your name",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "test": "jest",
+    "deploy": "npm run generate && firebase deploy --only hosting --project nuxt-demo",
+    "startEmulators": "firebase --project nuxt-demo emulators:start"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "npm run lint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.9.5",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/firebase": "^5.0.2",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "ant-design-vue": "^1.4.12",
+    "cross-env": "^7.0.2",
+    "firebase": "^7.11.0",
+    "jwt-decode": "^2.2.0",
+    "nuxt": "^2.12.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^2.0.2",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@nuxtjs/stylelint-module": "^3.2.2",
+    "@vue/test-utils": "^1.0.0-beta.32",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-nuxt": "^0.5.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "stylelint": "^13.2.1",
+    "vue-jest": "^3.0.5"
+  }
+}

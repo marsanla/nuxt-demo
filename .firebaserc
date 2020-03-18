@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "nuxt-demo": "nuxt-demo",
+    "default": "nuxt-demo"
+  }
+}

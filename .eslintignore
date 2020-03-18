@@ -1,0 +1,8 @@
+node_modules
+.vscode
+dist
+.nuxt
+coverage
+server
+.gitignore
+static

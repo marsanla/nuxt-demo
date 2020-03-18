@@ -1,0 +1,118 @@
+{
+    // ===
+    // Files
+    // ===
+  
+    "files.exclude": {
+      "**/*.log": true,
+      "**/*.log*": true,
+      "**/dist": true,
+      "**/coverage": true
+    },
+    "files.associations": {
+      ".markdownlintrc": "jsonc"
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/dist": true,
+      "**/coverge": true
+    },
+  
+    // ===
+    // EDITOR
+    // ===
+  
+    "editor.formatOnSave": true,
+  
+    // ===
+    // INTELLISENSE
+    // ===
+  
+    "npm-intellisense.importES6": false,
+    "npm-intellisense.importQuotes": "'",
+    "npm-intellisense.importLinebreak": ";\r\n",
+    "npm-intellisense.importDeclarationType": "const",
+  
+    // ===
+    // TAGS
+    // ===
+  
+    "auto-close-tag.enableAutoCloseTag": true,
+    "auto-close-tag.enableAutoCloseSelfClosingTag": true,
+    "auto-close-tag.activationOnLanguage": ["*"],
+    "auto-rename-tag.activationOnLanguage": ["*"],
+  
+    // ===
+    // EMMET
+    // ===
+  
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+      "vue-html": "html"
+    },
+  
+    // ===
+    // JS(ON)
+    // ===
+  
+    "jest.autoEnable": false,
+    "jest.enableCodeLens": false,
+    "javascript.format.enable": false,
+    "json.format.enable": false,
+  
+    // ===
+    // ESLINT
+    // ===
+  
+    "eslint.enable": false,
+    "eslint.provideLintTask": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "eslint.autoFixOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.validate": [
+      {
+        "language": "vue",
+        "autoFix": true
+      },
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "javascriptreact",
+        "autoFix": true
+      }
+    ],
+  
+    // ===
+    // VETUR
+    // ===
+  
+    "vetur.format.enable": true,
+    "vetur.completion.tagCasing": "initial",
+    "vetur.format.defaultFormatter.html": "prettyhtml",
+    "vetur.format.defaultFormatter.css": "prettier",
+    "vetur.format.defaultFormatter.postcss": "prettier",
+    "vetur.format.defaultFormatter.scss": "prettier",
+    "vetur.format.defaultFormatter.less": "prettier",
+    "vetur.format.defaultFormatter.js": "prettier",
+    "vetur.format.defaultFormatter.ts": "prettier",
+    "vetur.grammar.customBlocks": {
+      "docs": "md",
+      "i18n": "json"
+    },
+  
+    // ===
+    // MARKDOWN
+    // ===
+  
+    "[markdown]": {
+      "editor.wordWrap": "wordWrapColumn",
+      "editor.wordWrapColumn": 80
+    },
+    "i18n-ally.localesPaths": "src/locales"
+  }
+  
