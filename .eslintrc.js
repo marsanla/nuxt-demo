@@ -26,6 +26,7 @@ module.exports = {
     'object-curly-spacing': [2, 'always'],
     'arrow-parens': [2, 'always'],
     allowEmptyCatch: 0,
+    'require-await': 0,
     'no-empty-pattern': 0,
     semi: [2, 'always'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
