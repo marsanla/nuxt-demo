@@ -14,15 +14,6 @@
     "deploy": "npm run generate && firebase deploy --only hosting --project nuxt-demo",
     "startEmulators": "firebase --project nuxt-demo emulators:start"
   },
-  "lint-staged": {
-    "*.{js,vue}": "npm run lint",
-    "*.{css,vue}": "stylelint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
@@ -46,9 +37,7 @@
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-nuxt": "^0.5.1",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.3",
     "jest": "^25.1.0",
-    "lint-staged": "^10.0.8",
     "prettier": "^1.19.1",
     "stylelint": "^13.2.1",
     "vue-jest": "^3.0.5"
