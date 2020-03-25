@@ -1,36 +1,22 @@
-const options = {
-  firebaseVersion: '7.11.0',
-  config: {
-    apiKey: undefined,
-    authDomain: undefined,
-    databaseURL: undefined,
-    projectId: undefined,
-    storageBucket: undefined,
-    messagingSenderId: undefined,
-    appId: undefined,
-    measurementId: undefined,
-    fcmPublicVapidKey: undefined,
-  },
-  onFirebaseHosting: false,
-  ignorePaths: ['\u002F__webpack_hmr', '\u002F_loading', '\u002F_nuxt\u002F'],
-};
-const version = options.firebaseVersion;
-const onFirebaseHosting = options.onFirebaseHosting;
-const ignorePaths = options.ignorePaths;
+const options = {"firebaseVersion":"7.12.0","config":{"apiKey":undefined,"authDomain":undefined,"databaseURL":undefined,"projectId":undefined,"storageBucket":undefined,"messagingSenderId":undefined,"appId":undefined,"measurementId":undefined,"fcmPublicVapidKey":undefined},"onFirebaseHosting":false,"ignorePaths":["\u002F__webpack_hmr","\u002F_loading","\u002F_nuxt\u002F"]}
+const version = options.firebaseVersion
+const onFirebaseHosting = options.onFirebaseHosting
+const ignorePaths = options.ignorePaths
 
 if (onFirebaseHosting) {
   // Only works on Firebase hosting!
-  importScripts('/__/firebase/' + version + '/firebase-app.js');
-  importScripts('/__/firebase/' + version + '/firebase-auth.js');
-  importScripts('/__/firebase/init.js');
-} else {
+  importScripts('/__/firebase/' + version + '/firebase-app.js')
+  importScripts('/__/firebase/' + version + '/firebase-auth.js')
+  importScripts('/__/firebase/init.js')
+}
+else {
   importScripts(
     'https://www.gstatic.com/firebasejs/' + version + '/firebase-app.js'
-  );
+  )
   importScripts(
     'https://www.gstatic.com/firebasejs/' + version + '/firebase-auth.js'
-  );
-  firebase.initializeApp(options.config);
+  )
+  firebase.initializeApp(options.config)
 }
 
 /**
@@ -44,14 +30,11 @@ const getIdToken = () => {
       unsubscribe();
       if (user) {
         // force token refresh as it might be used to sign in server side
-        user.getIdToken(true).then(
-          (idToken) => {
-            resolve(idToken);
-          },
-          () => {
-            resolve(null);
-          }
-        );
+        user.getIdToken(true).then((idToken) => {
+          resolve(idToken);
+        }, () => {
+          resolve(null);
+        });
       } else {
         resolve(null);
       }
@@ -62,7 +45,7 @@ const getIdToken = () => {
 const fetchWithAuthorization = async (original, idToken) => {
   // Clone headers as request headers are immutable.
   const headers = new Headers();
-  for (const entry of original.headers.entries()) {
+  for (let entry of original.headers.entries()) {
     headers.append(entry[0], entry[1]);
   }
 
@@ -75,26 +58,24 @@ const fetchWithAuthorization = async (original, idToken) => {
     ...props,
     mode: 'same-origin',
     redirect: 'manual',
-    headers,
+    headers
   });
 
-  return fetch(authorized);
+  return fetch(authorized)
 };
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  const expectsHTML = event.request.headers.get('accept').includes('text/html');
+  const expectsHTML = event.request.headers.get('accept').includes('text/html')
   const isSameOrigin = self.location.origin === url.origin;
-  const isHttps =
-    self.location.protocol === 'https:' ||
-    self.location.hostname === 'localhost';
-  const isIgnored = ignorePaths.some((path) => {
+  const isHttps = (self.location.protocol === 'https:' || self.location.hostname === 'localhost');
+  const isIgnored = ignorePaths.some(path => {
     if (typeof path === 'string') {
-      return url.pathname.startsWith(path);
+      return url.pathname.startsWith(path)
     }
 
-    return path.test(url.pathname.slice(1));
+    return path.test(url.pathname.slice(1))
   });
 
   if (!expectsHTML || !isSameOrigin || !isHttps || isIgnored) {
@@ -107,20 +88,18 @@ self.addEventListener('fetch', (event) => {
   // This can also be integrated with existing logic to serve cached files
   // in offline mode.
   event.respondWith(
-    getIdToken().then((idToken) =>
-      idToken
-        ? // if the token was retrieved we attempt an authorized fetch
-          // if anything goes wrong we fall back to the original request
-          fetchWithAuthorization(event.request, idToken).catch(() =>
-            fetch(event.request)
-          )
-        : // otherwise we return a fetch of the original request directly
-          fetch(event.request)
+    getIdToken().then(
+      idToken => idToken
+        // if the token was retrieved we attempt an authorized fetch
+        // if anything goes wrong we fall back to the original request
+        ? fetchWithAuthorization(event.request, idToken).catch(() => fetch(event.request))
+        // otherwise we return a fetch of the original request directly
+        : fetch(event.request)
     )
-  );
+  )
 });
 
 // In service worker script.
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   event.waitUntil(clients.claim());
 });
