@@ -1,8 +1,7 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <h2 class="subtitle">Demo-day starter</h2>
-      Content
+    Something about your company
     </a-layout-content>
   </a-layout>
 </template>

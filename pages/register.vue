@@ -1,57 +1,50 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">Register</h1>
-      <h2 class="subtitle">Demo-day starter</h2>
-      <div>
-        <a-form
-          layout="inline"
-          :model="formData"
-          @submit="createUser"
-          @submit.native.prevent
-        >
-          <a-form-item ref="email" prop="email">
-            <a-input v-model="formData.email" placeholder="Email">
-              <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
+  <a-layout>
+    <a-layout-content>
+      <a-row type="flex" justify="center">
+        <a-col>
+          <h1 class="ant-typography">Register</h1>
+          <h3 class="ant-typography">Subtitle</h3>
+        </a-col>
+      </a-row>
 
-          <a-form-item ref="password" prop="password">
-            <a-input
-              v-model="formData.password"
-              type="password"
-              placeholder="Password"
-            >
-              <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
+      <a-row type="flex" justify="center">
+        <a-col>
+          <a-form layout="inline" :model="formData" @submit="createUser" @submit.native.prevent>
+            <a-form-item ref="email" prop="email">
+              <a-input v-model="formData.email" placeholder="Email">
+                <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-item>
 
-          <a-form-item>
-            <a-button
-              type="primary"
-              html-type="submit"
-              :disabled="formData.user === '' || formData.password === ''"
-            >
-              Register
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </div>
-    </div>
-  </div>
+            <a-form-item ref="password" prop="password">
+              <a-input v-model="formData.password" type="password" placeholder="Password">
+                <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-item>
+
+            <a-form-item>
+              <a-button
+                type="primary"
+                html-type="submit"
+                :loading="loading"
+                :disabled="formData.user === '' || formData.password === ''"
+              >Register</a-button>
+            </a-form-item>
+          </a-form>
+        </a-col>
+      </a-row>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
-import Logo from '~/components/Logo.vue';
-
 export default {
-  components: {
-    Logo,
-  },
+  components: {},
   data: () => ({
+    loading: false,
     formData: {
       email: '',
       password: '',
@@ -71,16 +64,20 @@ export default {
   },
   methods: {
     async createUser() {
+      this.loading = true;
       try {
         await this.$fireAuth.createUserWithEmailAndPassword(
           this.formData.email,
           this.formData.password
         );
+
         this.$router.push({
-          path: '/login',
+          path: '/',
         });
       } catch (e) {
-        alert(e);
+        this.loading = false;
+        console.log(e);
+        this.$message.error(e);
       }
     },
   },

@@ -1,57 +1,51 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">Log In</h1>
-      <h2 class="subtitle">Demo-day starter</h2>
-      <div>
-        <a-form
-          layout="inline"
-          :model="formData"
-          @submit="signInUser"
-          @submit.native.prevent
-        >
-          <a-form-item ref="email" prop="email">
-            <a-input v-model="formData.email" placeholder="Email">
-              <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
+  <a-layout>
+    <a-layout-content>
+      <a-row type="flex" justify="center">
+        <a-col>
+          <h1 class="ant-typography">Log In</h1>
+          <h3 class="ant-typography">Subtitle</h3>
+        </a-col>
+      </a-row>
 
-          <a-form-item ref="password" prop="password">
-            <a-input
-              v-model="formData.password"
-              type="password"
-              placeholder="Password"
-            >
-              <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
+      <a-row type="flex" justify="center">
+        <a-col>
+          <a-form layout="inline" :model="formData" @submit="signInUser" @submit.native.prevent>
+            <a-form-item ref="email" prop="email">
+              <a-input v-model="formData.email" placeholder="Email">
+                <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-item>
 
-          <a-form-item>
-            <a-button
-              type="primary"
-              html-type="submit"
-              :disabled="formData.user === '' || formData.password === ''"
-            >
-              Log in
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </div>
-    </div>
-  </div>
+            <a-form-item ref="password" prop="password">
+              <a-input v-model="formData.password" type="password" placeholder="Password">
+                <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-item>
+
+            <a-form-item>
+              <a-button
+                type="primary"
+                html-type="submit"
+                :loading="loading"
+                :disabled="formData.user === '' || formData.password === ''"
+              >Log in</a-button>
+            </a-form-item>
+          </a-form>
+        </a-col>
+      </a-row>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
-import Logo from '~/components/Logo.vue';
-
 export default {
-  components: {
-    Logo,
-  },
+  components: {},
+  middleware: 'no_auth',
   data: () => ({
+    loading: false,
     formData: {
       email: '',
       password: '',
@@ -71,6 +65,7 @@ export default {
   },
   methods: {
     async signInUser() {
+      this.loading = true;
       try {
         await this.$fireAuth.signInWithEmailAndPassword(
           this.formData.email,
@@ -80,7 +75,8 @@ export default {
           path: '/',
         });
       } catch (e) {
-        alert(e);
+        this.loading = false;
+        this.$message.error(e);
       }
     },
   },
@@ -95,27 +91,5 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
