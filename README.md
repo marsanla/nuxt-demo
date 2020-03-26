@@ -19,6 +19,13 @@ $ npm run start
 $ npm run generate
 ```
 
+## Update repository
+
+```bash
+$ git remote add upstream https://github.com/marsanla/nuxt-demo
+$ git pull upstream
+```
+
 ## Info to manage firestore rules
 
 [https://medium.com/@khreniak/cloud-firestore-security-rules-basics-fac6b6bea18e](https://medium.com/@khreniak/cloud-firestore-security-rules-basics-fac6b6bea18e)
