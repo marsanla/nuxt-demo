@@ -12,7 +12,7 @@ export default {
         email: authUser.email,
         emailVerified: authUser.emailVerified,
         displayName: authUser.displayName,
-        displaphotoURLyName: authUser.photoURL,
+        photoURL: authUser.photoURL,
         phoneNumber: authUser.phoneNumber,
         role: authUser.role,
       };
