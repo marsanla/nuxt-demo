@@ -23,7 +23,7 @@ $ npm run generate
 
 ```bash
 $ git remote add upstream https://github.com/marsanla/nuxt-demo
-$ git pull upstream
+$ git pull upstream master
 ```
 
 ## Info to manage firestore rules
