@@ -10,16 +10,33 @@
 
       <a-row type="flex" justify="center">
         <a-col>
-          <a-form layout="inline" :model="formData" @submit="signInUser" @submit.native.prevent>
+          <a-form
+            layout="inline"
+            :model="formData"
+            @submit="signInUser"
+            @submit.native.prevent
+          >
             <a-form-item ref="email" prop="email">
               <a-input v-model="formData.email" placeholder="Email">
-                <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+                <a-icon
+                  slot="prefix"
+                  type="user"
+                  style="color: rgba(0, 0, 0, 0.25);"
+                />
               </a-input>
             </a-form-item>
 
             <a-form-item ref="password" prop="password">
-              <a-input v-model="formData.password" type="password" placeholder="Password">
-                <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
+              <a-input
+                v-model="formData.password"
+                type="password"
+                placeholder="Password"
+              >
+                <a-icon
+                  slot="prefix"
+                  type="lock"
+                  style="color: rgba(0, 0, 0, 0.25);"
+                />
               </a-input>
             </a-form-item>
 
@@ -29,7 +46,8 @@
                 html-type="submit"
                 :loading="loading"
                 :disabled="formData.user === '' || formData.password === ''"
-              >Log in</a-button>
+                >Log in</a-button
+              >
             </a-form-item>
           </a-form>
         </a-col>
@@ -76,7 +94,7 @@ export default {
         });
       } catch (e) {
         this.loading = false;
-        this.$message.error(e);
+        this.$message.error(e.message);
       }
     },
   },

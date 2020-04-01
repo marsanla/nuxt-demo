@@ -1,8 +1,22 @@
 <template>
   <a-layout>
     <a-layout-content>
-      <h2 class="subtitle">Profle</h2>
+      <h2 class="subtitle">Profile</h2>
       <p>{{ authUser.email }}</p>
+
+      <div>
+        <a-upload
+          name="file"
+          :showUploadList="false"
+          :customRequest="() => {}"
+          accept="image/*"
+          :action="uploadAvatar"
+        >
+          <a-button :loading="uploading"
+            ><a-icon type="upload" /> Click to Upload
+          </a-button>
+        </a-upload>
+      </div>
     </a-layout-content>
   </a-layout>
 </template>
@@ -13,10 +27,37 @@ import { mapState } from 'vuex';
 export default {
   components: {},
   middleware: 'auth',
+  data: () => {
+    return {
+      uploading: false,
+    };
+  },
   computed: {
     ...mapState({
       authUser: (state) => state.authUser,
     }),
+  },
+  methods: {
+    async uploadAvatar(file) {
+      this.uploading = true;
+      const storageRef = this.$fireStorage
+        .ref()
+        .child(`avatar/${this.authUser.uid}.jpeg`);
+      try {
+        await storageRef.put(file);
+        const url = await storageRef.getDownloadURL();
+
+        await this.$fireAuth.currentUser.updateProfile({
+          uid: this.authUser.uid,
+          photoURL: url,
+        });
+
+        this.$message.success('Success.');
+      } catch (e) {
+        this.$message.error(e.message);
+      }
+      this.uploading = false;
+    },
   },
 };
 </script>

@@ -22,12 +22,14 @@
           </a-menu-item>
         </a-menu>
       </a-col>
-      <a-col :style="{'text-align': 'right'}" :span="12">
+      <a-col :style="{ 'text-align': 'right' }" :span="12">
         <template v-if="isLoggedIn">
           <a-dropdown>
-            <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+            <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
               {{ authUser.displayName || authUser.email }}
-              <a-icon type="down" />
+              <a-avatar :src="authUser.photoURL">{{
+                authUser.displayName || authUser.email
+              }}</a-avatar>
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
