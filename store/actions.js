@@ -40,11 +40,23 @@ export default {
     }
   },
 
-  onAuthStateChanged({ commit }, { authUser }) {
+  async onAuthStateChanged({ commit }, { authUser }) {
     if (!authUser) {
       commit('RESET_STORE');
       return;
     }
+
+    try {
+      const userProfile = await this.$fireStore
+        .collection('userProfile')
+        .doc(authUser.uid)
+        .get();
+      const doc = userProfile.data();
+      if (doc) {
+        Object.assign(authUser, doc);
+      }
+    } catch (e) {}
+
     commit('SET_AUTH_USER', { authUser });
   },
 

@@ -6,9 +6,16 @@ export default {
   },
 
   SET_AUTH_USER: (state, { authUser }) => {
-    state.authUser = {
-      uid: authUser.uid,
-      email: authUser.email,
-    };
+    if (authUser) {
+      state.authUser = {
+        uid: authUser.uid,
+        email: authUser.email,
+        emailVerified: authUser.emailVerified,
+        displayName: authUser.displayName,
+        displaphotoURLyName: authUser.photoURL,
+        phoneNumber: authUser.phoneNumber,
+        role: authUser.role,
+      };
+    }
   },
 };

@@ -100,7 +100,7 @@ export default {
       auth: {
         // persistence: 'local',
         initialize: {
-          // onAuthStateChangedMutation: 'SET_AUTH_USER',
+          onAuthStateChangedMutation: 'SET_AUTH_USER',
           onAuthStateChangedAction: 'onAuthStateChanged',
         },
         ssr: true,

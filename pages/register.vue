@@ -11,6 +11,12 @@
       <a-row type="flex" justify="center">
         <a-col>
           <a-form layout="inline" :model="formData" @submit="createUser" @submit.native.prevent>
+            <a-form-item ref="displayName" prop="displayName">
+              <a-input v-model="formData.displayName" placeholder="Full name">
+                <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+              </a-input>
+            </a-form-item>
+
             <a-form-item ref="email" prop="email">
               <a-input v-model="formData.email" placeholder="Email">
                 <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
@@ -46,6 +52,7 @@ export default {
   data: () => ({
     loading: false,
     formData: {
+      displayName: '',
       email: '',
       password: '',
     },
@@ -66,17 +73,26 @@ export default {
     async createUser() {
       this.loading = true;
       try {
-        await this.$fireAuth.createUserWithEmailAndPassword(
+        const userIns = await this.$fireAuth.createUserWithEmailAndPassword(
           this.formData.email,
           this.formData.password
         );
+        const user = userIns.user;
+
+        await user.updateProfile({
+          uid: user.uid,
+          displayName: this.formData.displayName,
+        });
+
+        await this.$fireStore.collection('userProfile').doc(user.uid).set({
+          role: 'user',
+        });
 
         this.$router.push({
           path: '/',
         });
       } catch (e) {
         this.loading = false;
-        console.log(e);
         this.$message.error(e);
       }
     },
