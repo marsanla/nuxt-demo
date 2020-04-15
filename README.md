@@ -26,6 +26,9 @@ $ git remote add upstream https://github.com/marsanla/nuxt-demo
 $ git pull upstream master
 ```
 
+## More info
+Get more info from firestore: ```https://firebase.google.com/docs/firestore```
+
 ## Info to manage firestore rules
 
 [https://medium.com/@khreniak/cloud-firestore-security-rules-basics-fac6b6bea18e](https://medium.com/@khreniak/cloud-firestore-security-rules-basics-fac6b6bea18e)
