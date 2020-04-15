@@ -10,7 +10,13 @@
         >
         <a-button @click="readFromFirestore()">Read from database</a-button>
 
-        <div>{{ message }}</div>
+        <div>Selected project: {{ message.title }}</div>
+        <div>
+          All projects:
+          <div v-for="item in projects" :key="item.id">
+            Project name: {{ item.title }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +30,8 @@ export default {
   middleware: 'auth',
   data: () => {
     return {
-      message: '',
+      projects: [],
+      selectedProject: null
     };
   },
   computed: {
@@ -32,11 +39,20 @@ export default {
       authUser: (state) => state.authUser,
     }),
   },
+  created() {
+    this.$fireStore.collection('project').onSnapshot(snap => {
+      let projects = [];
+      snap.forEach(doc => {
+        projects.push({id: doc.id, name: doc.data().name})
+      });
+      this.projects = projects;
+    });
+  },
   methods: {
     async writeToFirestore() {
-      const messageRef = this.$fireStore.collection('projects').doc();
+      const projectRef = this.$fireStore.collection('projects').doc();
       try {
-        await messageRef.set({
+        await projectRef.set({
           title: 'Nuxt-Fire with Firestore rocks!',
         });
       } catch (e) {
@@ -46,15 +62,15 @@ export default {
       this.$message.success('Success.');
     },
     async readFromFirestore() {
-      const messageRef = this.$fireStore.collection('projects').doc('<uid>');
+      const projectRef = this.$fireStore.collection('projects').doc('<uid>');
       try {
-        const snapshot = await messageRef.get();
+        const snapshot = await projectRef.get();
         const doc = snapshot.data();
         if (!doc) {
-          this.$message.error('Document does not exist.');
+          this.$message.error('Project does not exist.');
           return;
         }
-        this.message = doc.message;
+        this.selectedProject = doc;
       } catch (e) {
         this.$message.error(e.message);
       }
