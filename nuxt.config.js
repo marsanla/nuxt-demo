@@ -4,6 +4,10 @@ dotenv.config();
 export default {
   mode: 'universal',
 
+  srcDir: 'src',
+
+  buildDir: 'functions/.nuxt',
+
   /*
    ** Headers of the page
    */
@@ -63,6 +67,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    ['@nuxtjs/dotenv', { path: './' }],
   ],
 
   /*
@@ -73,7 +78,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { path: './' }],
     '@nuxtjs/firebase',
   ],
   /*
@@ -95,7 +100,7 @@ export default {
       measurementId: process.env.measurementId,
       fcmPublicVapidKey: process.env.fcmPublicVapidKey,
     },
-    onFirebaseHosting: false,
+    onFirebaseHosting: true,
     services: {
       auth: {
         // persistence: 'local',
@@ -142,6 +147,8 @@ export default {
    ** Build configuration
    */
   build: {
+    extractCSS: true,
+
     /*
      ** You can extend webpack config here
      */

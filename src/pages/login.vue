@@ -74,7 +74,7 @@ export default {
       isLoggedIn: 'isLoggedIn',
     }),
   },
-  created() {
+  mounted() {
     if (this.isLoggedIn) {
       this.$router.push({
         path: '/',

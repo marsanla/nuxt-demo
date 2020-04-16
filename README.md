@@ -5,10 +5,10 @@
 ## Build Setup
 
 ```bash
-# install dependencies
+# First install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Use this command while developing (localhost:3000)
 $ npm run dev
 
 # build for production and launch server
@@ -17,6 +17,14 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# firebase start
+$ npm run build:firebase # If you have windows use: build:firebase:windows
+$ npm run start:firebase
+
+# firebase deploy
+$ npm run build:firebase # If you have windows use: build:firebase:windows
+$ npm run deploy
 ```
 
 ## Update repository
@@ -27,7 +35,8 @@ $ git pull upstream master
 ```
 
 ## More info
-Get more info from firestore: ```https://firebase.google.com/docs/firestore```
+
+Get more info from firestore: `https://firebase.google.com/docs/firestore`
 
 ## Info to manage firestore rules
 

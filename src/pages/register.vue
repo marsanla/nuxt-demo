@@ -84,7 +84,7 @@ export default {
       isLoggedIn: 'isLoggedIn',
     }),
   },
-  created() {
+  mounted() {
     if (this.isLoggedIn) {
       this.$router.push({
         path: '/',
@@ -107,6 +107,8 @@ export default {
         });
 
         await this.$fireStore.collection('userProfile').doc(user.uid).set({
+          displayName: this.formData.displayName,
+          email: this.formData.email,
           role: 'user',
         });
 

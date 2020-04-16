@@ -1,6 +1,6 @@
 <script>
 export default {
-  async created() {
+  async mounted() {
     try {
       await this.$fireAuth.signOut();
     } catch (e) {}
@@ -12,6 +12,6 @@ export default {
 
   render: () => {
     return '';
-  }
+  },
 };
 </script>
